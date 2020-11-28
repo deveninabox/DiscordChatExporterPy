@@ -13,7 +13,6 @@ from datetime import timedelta
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-eastern = timezone("US/Eastern")
 utc = timezone("UTC")
 
 bot = None
@@ -41,25 +40,10 @@ async def export(ctx):
         print(f"Please send a screenshot of the above error to https://www.github.com/mahtoid/DiscordChatExporterPy")
 
     if transcript is not None:
-        async for m in ctx.channel.history(limit=None):
-            try:
-                for f in m.attachments:
-                    if f"transcript-{ctx.channel.name}.html" in f.filename:
-                        await m.delete()
-            except TypeError:
-                continue
-
-        # Save transcript
-        transcript_embed = discord.Embed(
-            description=f"**Transcript Name:** transcript-{ctx.channel.name}\n\n"
-                        f"{ctx.author.mention} requested a transcript of the channel",
-            colour=discord.Colour.blurple()
-        )
-
         transcript_file = discord.File(io.BytesIO(transcript.encode()),
-                                       filename=f"transcript-{ctx.channel.name}.html")
+                                       filename=f"{ctx.channel.name}.html")
 
-        await ctx.channel.send(embed=transcript_embed, file=transcript_file)
+        await ctx.channel.send(file=transcript_file)
 
 
 async def generate_transcript(channel):
@@ -81,10 +65,10 @@ async def produce_transcript(channel):
     messages_html = ""
     for m in messages:
         time_format = "%b %d, %Y %I:%M %p"
-        time_string = utc.localize(m.created_at).astimezone(eastern)
+        time_string = utc.localize(m.created_at)
         time_string_created = time_string.strftime(time_format)
         if m.edited_at is not None:
-            time_string_edited = utc.localize(m.edited_at).astimezone(eastern)
+            time_string_edited = utc.localize(m.edited_at)
             time_string_edited = time_string_edited.strftime(time_format)
             time_string_final = "%s (edited %s)" \
                                 % (time_string_created, time_string_edited)
@@ -265,7 +249,7 @@ async def produce_transcript(channel):
 
         cur_msg = ""
 
-        author_name = await escape_html(m.author.display_name)
+        author_name = await escape_html(str(m.author.name + '#' + m.author.discriminator + f' // {m.author.id}'))
 
         if previous_author == m.author.id and previous_timestamp > time_string:
             cur_msg = await fill_out(channel, continue_message, [
@@ -314,12 +298,12 @@ async def produce_transcript(channel):
         guild_icon = "https://discord.com/assets/dd4dbc0016779df1378e7812eabaa04d.png"
     guild_name = await escape_html(guild.name)
     transcript = await fill_out(channel, total, [
-        ("SERVER_NAME", f"Guild: {guild_name}"),
+        ("SERVER_NAME", f"Guild: {guild_name} // {guild.id}"),
         ("SERVER_AVATAR_URL", str(guild_icon), PARSE_MODE_NONE),
         ("CHANNEL_NAME", f"Channel: {channel.name}"),
         ("MESSAGE_COUNT", str(len(messages))),
         ("MESSAGES", messages_html, PARSE_MODE_NONE),
-        ("TIMEZONE", str(eastern)),
+        ("TIMEZONE", str(utc)),
     ])
 
     return transcript
