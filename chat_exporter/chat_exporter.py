@@ -249,8 +249,8 @@ async def produce_transcript(channel):
 
         cur_msg = ""
 
-        author_name = await escape_html(str(m.author.name + '#' + m.author.discriminator + f' // {m.author.id}'))
-
+        author_name = await escape_html(m.author.display_name)
+        
         if previous_author == m.author.id and previous_timestamp > time_string:
             cur_msg = await fill_out(channel, continue_message, [
                 ("AVATAR_URL", str(m.author.avatar_url)),
