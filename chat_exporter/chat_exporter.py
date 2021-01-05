@@ -17,8 +17,10 @@ eastern = timezone("US/Eastern")
 utc = timezone("UTC")
 
 
-async def export(ctx):
+async def export(ctx, channel=None):
     # noinspection PyBroadException
+    channel = channel or ctx.channel
+    
     try:
         transcript = await produce_transcript(ctx.channel)
     except Exception:
@@ -30,7 +32,7 @@ async def export(ctx):
             description="Whoops! We've stumbled in to an issue here.",
             colour=discord.Colour.red()
         )
-        await ctx.channel.send(embed=error_embed)
+        await channel.send(embed=error_embed)
         print(f"Please send a screenshot of the above error to https://www.github.com/mahtoid/DiscordChatExporterPy")
 
     if transcript is not None:
@@ -52,7 +54,7 @@ async def export(ctx):
         transcript_file = discord.File(io.BytesIO(transcript.encode()),
                                        filename=f"transcript-{ctx.channel.name}.html")
 
-        await ctx.channel.send(embed=transcript_embed, file=transcript_file)
+        await channel.send(embed=transcript_embed, file=transcript_file)
 
 
 async def generate_transcript(channel: discord.TextChannel, tz_info="US/Eastern"):
