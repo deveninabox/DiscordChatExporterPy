@@ -5,11 +5,11 @@ with open("README.rst") as fh:
 
 setup(
     name="chat_exporter",
-    version="1.2",
-    author="mahtoid",
-    description="A simple Discord chat exporter for Python Discord bots.",
+    version="1.0",
+    author="chicc",
+    description="A enhanced Discord chat exporter for Python Discord bots based on mahtoid's chat_exporter.",
     long_description=long_description,
-    url="https://github.com/mahtoid/DiscordChatExporterPy",
+    url="https://github.com/ChickenDevs/EnhancedDiscordChatExporterPy",
     packages=find_packages(),
     package_data={'': [r'chat_exporter/chat_exporter_html/*.html']},
     include_package_data=True,
