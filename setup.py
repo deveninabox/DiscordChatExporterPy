@@ -4,8 +4,8 @@ with open("README.rst") as fh:
     long_description = fh.read()
 
 setup(
-    name="chat_exporter",
-    version="1.0",
+    name="enhanced_chat_exporter",
+    version="1.0.1",
     author="chicc",
     description="A enhanced Discord chat exporter for Python Discord bots based on mahtoid's chat_exporter.",
     long_description=long_description,
