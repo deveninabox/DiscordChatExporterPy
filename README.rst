@@ -1,15 +1,15 @@
-DiscordChatExporterPy
+EnhancedDiscordChatExporterPy
 =====================
 
 |version| |license| |language|
 
-.. |license| image:: https://img.shields.io/pypi/l/chat-exporter
+.. |license| image:: https://img.shields.io/pypi/l/enhanced-chat-exporter
 
-.. |version| image:: https://img.shields.io/pypi/v/chat-exporter
+.. |version| image:: https://img.shields.io/pypi/v/enhanced-chat-exporter
 
-.. |language| image:: https://img.shields.io/github/languages/top/mahtoid/discordchatexporterpy
+.. |language| image:: https://img.shields.io/github/languages/top/ChickenDevs/EnhancedDiscordChatExporterPy
 
-DiscordChatExporterPy is a Python plugin for your discord.py bot, allowing you to export a discord channels history within a guild.
+EnhancedDiscordChatExporterPy is a Python plugin for your discord.py bot, allowing you to export a discord channels history within a guild.
 
 Installing
 ----------
@@ -17,20 +17,20 @@ To install the library to your bot, run the command:
 
 .. code:: sh
 
-    pip install chat-exporter
+    pip install enhanced-chat-exporter
 
 To install the repository, run the command:
 
 .. code:: sh
 
-    git clone https://github.com/mahtoid/DiscordChatExporterPy
+    git clone https://github.com/ChickenDevs/EnhancedDiscordChatExporterPy
 
 Usage
 -----
 .. code:: py
     
     import discord
-    import chat_exporter
+    import enhanced_chat_exporter
     from discord.ext import commands
     
     bot = commands.Bot(command_prefix="!")
@@ -43,7 +43,8 @@ Usage
     
     @bot.command()
     async def save(ctx):
-        await chat_exporter.export(ctx)
+        channel = discord.utils.get(ctx.guild.channels, name="logs")
+        await enhanced_chat_exporter.export(ctx, channel)  # channel is optional, if not used, it will send into the current channel
     
     if __name__ == "__main__":
         bot.run("BOT_TOKEN_HERE")
@@ -53,13 +54,10 @@ Usage
 Screenshots
 -----------
 
-.. image:: https://raw.githubusercontent.com/mahtoid/DiscordChatExporterPy/master/.screenshots/channel_output.png
+.. image:: https://raw.githubusercontent.com/ChickenDevs/EnhancedDiscordChatExporterPy/master/.screenshots/channel_output.png
 
-.. image:: https://raw.githubusercontent.com/mahtoid/DiscordChatExporterPy/master/.screenshots/html_output.png
+.. image:: https://raw.githubusercontent.com/ChickenDevs/EnhancedDiscordChatExporterPy/master/.screenshots/html_output.png
 
 Links
 -----
-- `Wiki <https://github.com/mahtoid/DiscordChatExporterPy/wiki/>`_
-- `Discord Server <https://discord.gg/jeAdPaC>`_
-
-
+- `Wiki <https://github.com/ChickenDevs/EnhancedDiscordChatExporterPy/wiki/>`_
