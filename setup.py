@@ -1,14 +1,11 @@
 from setuptools import setup, find_packages
 
-with open("README.rst") as fh:
-    long_description = fh.read()
-
 setup(
     name="enhanced_chat_exporter",
     version="1.0.2",
     author="chicc",
     description="A enhanced Discord chat exporter for Python Discord bots based on mahtoid's chat_exporter.",
-    long_description=long_description,
+    long_description="A enhanced Discord chat exporter for Python Discord bots based on mahtoid's chat_exporter.",
     url="https://github.com/ChickenDevs/EnhancedDiscordChatExporterPy",
     packages=find_packages(),
     package_data={'': [r'chat_exporter/chat_exporter_html/*.html']},
