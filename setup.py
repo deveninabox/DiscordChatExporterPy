@@ -5,7 +5,7 @@ with open("README.rst") as fh:
 
 setup(
     name="enhanced_chat_exporter",
-    version="1.0.1",
+    version="1.0.2",
     author="chicc",
     description="A enhanced Discord chat exporter for Python Discord bots based on mahtoid's chat_exporter.",
     long_description=long_description,
